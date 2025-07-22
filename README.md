@@ -23,7 +23,7 @@ GitHub 上に公開したスクリプトやアセットを jsDelivr CDN 経由�
    - `{リポジトリ名}`: リポジトリ名（例: `deliver`）
    - `{パス/to/ファイル.ext}`: 配信したいファイルの相対パス（例: `valid-jpn-phone-number.js`）
 
-例） `https://cdn.jsdelivr.net/gh/travelbook/deliver/valid-jpn-number.js`
+例） `https://cdn.jsdelivr.net/gh/travelbook/deliver/valid-jpn-phone-number.js`
 
 3. **特定のコミットやタグを指定する場合**
 コミット SHA やタグ名を指定可能です。
