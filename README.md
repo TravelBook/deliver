@@ -44,4 +44,4 @@ jsDelivr はグローバル CDN のためキャッシュ反映に数分〜数十
 2. 「Purge now」フォームに配信 URL を貼り付け
 3. **Purge now** ボタンをクリック
 
-![Purge Tool のスクリーンショット](docs/purge-screenshot.png)
+![Purge Tool のスクリーンショット](docs/jsdelivr-purge-screenshot.png)
