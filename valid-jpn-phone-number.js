@@ -1,5 +1,3 @@
-const MINIMUM_UNIQUE_DIGITS = 3;
-const MAXIMUM_SEQUENTIAL_DIGITS = 7;
 const MAXIMUM_ZERO_SEQUENTIAL_DIGITS = 7;
 
 /**
@@ -60,13 +58,14 @@ function isValidJpnPhoneNumber(number) {
     return false;
   }
 
-  // 3つ以上の異なる数字が必要
+  // 全ての数字が同じ場合は無効
   // 例:
   // 00000000000
-  // 0300000000
-  // 00011112222
-  if ((new Set(number)).size < MINIMUM_UNIQUE_DIGITS) {
-    console.log("3つ以上の異なる数字が必要");
+  // 11111111111
+  // 22222222222
+  // 33333333333 など
+  if ((new Set(number)).size == 1) {
+    console.log("全ての数字が同じ場合は無効");
     return false;
   }
 
