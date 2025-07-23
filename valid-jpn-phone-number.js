@@ -60,7 +60,7 @@ function isValidJpnPhoneNumber(number) {
     return false;
   }
 
-  // 連続する数字が3つ以上ある場合は無効
+  // 3つ以上の異なる数字が必要
   // 例:
   // 00000000000
   // 0300000000
@@ -79,10 +79,10 @@ function isValidJpnPhoneNumber(number) {
     return false;
   }
 
-  // 番号の連続が多すぎる場合は無効
+  // 連続する数字が多すぎる場合は無効
   // 例:
-  // 1123456789
-  // 1134567890
+  // 0123456789
+  // 1234567890
   // 0987654321
   // 09876543210
   if (isTooSequential(number, MAXIMUM_SEQUENTIAL_DIGITS, 1)) {
