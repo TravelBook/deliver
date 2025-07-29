@@ -1,5 +1,5 @@
 const MAXIMUM_SEQUENTIAL_DIGITS = 7;
-const MAXIMUM_ZERO_SEQUENTIAL_DIGITS = 7;
+const MAXIMUM_REPEATED_DIGITS_AT_END = 6;
 
 /**
  * 連続する数字が多すぎるかどうかをチェックする
@@ -70,12 +70,13 @@ function isValidJpnPhoneNumber(number) {
     return false;
   }
 
-  // 後ろ7桁以上が0のみの場合は無効
+  // 後ろ7桁以上が同じ数字のみの場合は無効
   // 例:
-  // 03000000000
-  // 031000000000
-  if ((new RegExp(`0{${MAXIMUM_ZERO_SEQUENTIAL_DIGITS},}$`)).test(number)) {
-    console.log(`${MAXIMUM_ZERO_SEQUENTIAL_DIGITS}つ以上の0が続く場合は無効`);
+  // 03000000000 (7つの0)
+  // 0311111111 (8つの1)
+  // 0322222222 (8つの2)
+  if ((new RegExp(`(\\d)\\1{${MAXIMUM_REPEATED_DIGITS_AT_END},}$`)).test(number)) {
+    console.log(`${MAXIMUM_REPEATED_DIGITS_AT_END+1}つ以上の同じ数字が続く場合は無効`);
     return false;
   }
 
@@ -96,3 +97,26 @@ function isValidJpnPhoneNumber(number) {
 
   return true;
 }
+
+console.log("1070908625",isValidJpnPhoneNumber("1070908625"), "\n");
+console.log("0070908625",isValidJpnPhoneNumber("0070908625"), "\n");
+console.log("asdfasfsdf",isValidJpnPhoneNumber("asdfasfsdf"), "\n");
+console.log("0357242482454620",isValidJpnPhoneNumber("0357242482454620"), "\n");
+console.log("032963",isValidJpnPhoneNumber("032963"), "\n");
+console.log("00000000000",isValidJpnPhoneNumber("00000000000"), "\n");
+console.log("00011111111",isValidJpnPhoneNumber("00011111111"), "\n");
+console.log("00011112222",isValidJpnPhoneNumber("00011112222"), "\n");
+console.log("1123456789",isValidJpnPhoneNumber("1123456789"), "\n");
+console.log("1134567890",isValidJpnPhoneNumber("1134567890"), "\n");
+console.log("0987654321",isValidJpnPhoneNumber("0987654321"), "\n");
+console.log("09876543210",isValidJpnPhoneNumber("09876543210"), "\n");
+console.log("0312345678",isValidJpnPhoneNumber("0312345678"), "\n");
+console.log("03300000000",isValidJpnPhoneNumber("03300000000"), "\n");
+
+console.log("07090851770",isValidJpnPhoneNumber("07090851770"), "\n");
+console.log("0354635776",isValidJpnPhoneNumber("0354635776"), "\n");
+
+console.log("0311111111",isValidJpnPhoneNumber("0311111111"), "\n");
+console.log("0300000000",isValidJpnPhoneNumber("0311111111"), "\n");
+console.log("0322222222",isValidJpnPhoneNumber("0311111111"), "\n");
+console.log("0300001111",isValidJpnPhoneNumber("0300001111"), "\n");
