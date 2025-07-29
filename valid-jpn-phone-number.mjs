@@ -89,3 +89,6 @@ function isValidJpnPhoneNumber(number) {
 
   return true;
 }
+
+// Export functions for testing
+export { isValidJpnPhoneNumber, isTooSequential };
