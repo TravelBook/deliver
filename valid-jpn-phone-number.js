@@ -41,6 +41,12 @@ function isValidJpnPhoneNumber(number) {
     return false;
   }
 
+  // 10桁か11桁であること
+  if (number.length < 10 || number.length > 11) {
+    console.log("10桁か11桁であること");
+    return false;
+  }
+
   // 先頭に0がない場合は無効
   if (!number.startsWith("0")) {
     console.log("先頭に0がない場合は無効");
@@ -50,12 +56,6 @@ function isValidJpnPhoneNumber(number) {
   // 先頭2桁が00の場合は無効
   if (number.startsWith("00")) {
     console.log("先頭2桁が00の場合は無効");
-    return false;
-  }
-
-  // 10桁か11桁であること
-  if (number.length < 10 || number.length > 11) {
-    console.log("10桁か11桁であること");
     return false;
   }
 
