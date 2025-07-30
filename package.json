@@ -1,0 +1,30 @@
+{
+  "name": "deliver",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "valid-jpn-phone-number.js",
+  "module": "valid-jpn-phone-number.mjs",
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "test:coverage": "node --test --experimental-test-coverage"
+  },
+  "files": [
+    "valid-jpn-phone-number.js",
+    "valid-jpn-phone-number.mjs",
+    "README.md"
+  ],
+  "keywords": [
+    "utilities",
+    "javascript",
+    "phone",
+    "validation",
+    "japanese",
+    "japan",
+    "jsdelivr",
+    "cdn"
+  ],
+  "author": "",
+  "license": "MIT"
+}
