@@ -8,7 +8,7 @@ const MAXIMUM_REPEATED_DIGITS_AT_END = 6;
  * @param {number} direction - 連続する数字の方向 (1: 昇順, -1: 降順)
  * @returns {boolean}
  */
-function isTooSequential(number, maxSequentialDigits, direction) {
+function isTooSequential(number: string, maxSequentialDigits: number, direction: number): boolean {
   let isTooSequential = false;
   let sequentialCounter = 0;
   for (let i = 1; i < number.length; i++) {
@@ -34,7 +34,7 @@ function isTooSequential(number, maxSequentialDigits, direction) {
  * @param {string} number - バリデーションする電話番号
  * @returns {boolean} - バリデーション結果
  */
-function isValidJpnPhoneNumber(number) {
+function isValidJpnPhoneNumber(number: string): boolean {
   // 数字のみであること
   if (!number.match(/^[0-9]+$/)) {
     return false;
@@ -90,5 +90,4 @@ function isValidJpnPhoneNumber(number) {
   return true;
 }
 
-// Export functions for testing
 export { isValidJpnPhoneNumber, isTooSequential };
