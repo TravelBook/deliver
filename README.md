@@ -1,24 +1,81 @@
 # deliver
 
-GitHub 上に公開したスクリプトやアセットを jsDelivr CDN 経由で配信する
+TypeScript で作成した JavaScript ユーティリティを jsDelivr CDN 経由で配信するプロジェクト
 
-## テスト環境
+## 開発環境
 
-このプロジェクトでは **Node.js 組み込みテストランナー** を使用しています。外部依存関係は不要です。
+このプロジェクトは **TypeScript** と **Jest** を使用した開発ワークフローを採用しています。
 
 ### 前提条件
 - Node.js v18以上 (v22以上推奨)
 
-### テストコマンド
+### プロジェクト構成
 
-```bash
-# 全てのテストを実行
-npm test
 
-# または直接実行
-node --test
+（例）
+```
+deliver/
+├── src/                           # TypeScript ソースファイル
+│   └── valid-jpn-phone-number.ts
+├── test/                          # Jest テストファイル
+│   └── valid-jpn-phone-number.test.ts
+├── scripts/
+│   └── build-all.mjs              # ビルドスクリプト
+└── valid-jpn-phone-number.js      # ビルド済み配信ファイル
 ```
 
+### 開発コマンド
+
+```bash
+# 依存関係をインストール
+npm install
+
+# TypeScript から JavaScript をビルド
+npm run build
+
+# 全てのテストを実行 (Jest + TypeScript)
+npm test
+
+# テストを監視モードで実行
+npm run test:watch
+```
+
+## ビルドプロセス
+
+1. **TypeScript コンパイル**: `tsc` でJavaScriptに変換
+2. **後処理**: import/export 文を除去してブラウザ用に変換
+3. **一時ディレクトリの自動削除**: ビルド後のクリーンアップ
+
+生成される JavaScript ファイルは TypeScript ソースとほぼ同一で、グローバル関数として使用できます。
+
+## 新しいユーティリティの追加
+
+```bash
+# 1. TypeScript ファイルを作成
+echo 'export function newUtility() { return "hello"; }' > src/new-utility.ts
+
+# 2. テストファイルを作成
+echo 'import { newUtility } from "../src/new-utility";' > test/new-utility.test.ts
+
+# 3. ビルド実行
+npm run build
+# → new-utility.js がルートディレクトリに自動生成される
+```
+
+## ブラウザでの使用方法
+
+生成されたファイルは CDN 経由でグローバル関数として使用できます：
+
+```html
+<!-- CDN から読み込み -->
+<script src="https://cdn.jsdelivr.net/gh/ユーザー名/deliver/valid-jpn-phone-number.js"></script>
+
+<script>
+  // グローバル関数として直接使用可能
+  console.log(isValidJpnPhoneNumber('09012345678')); // true
+  console.log(isTooSequential('01234567', 6, 1));   // true
+</script>
+```
 
 ## jsDelivr 配信設定
 
@@ -36,7 +93,7 @@ node --test
    以下の形式でアクセスすると、最新コミットからファイルを配信します。
 
    ```
-   https://cdn.jsdelivr.net/gh/{GitHubユーザー名}/{リポジトリ名}/{パス/to/ファイル.ext}
+   https://cdn.jsdelivr.net/gh/{GitHubユーザー名}/{リポジトリ名}/{ファイル名.js}
    ```
 
    - `{GitHubユーザー名}`: GitHub のユーザー名（例: `travelbook`）
