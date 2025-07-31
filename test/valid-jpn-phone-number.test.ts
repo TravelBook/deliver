@@ -1,6 +1,4 @@
-import { describe, it } from 'node:test';
-import assert from 'node:assert/strict';
-import { isValidJpnPhoneNumber, isTooSequential } from '../valid-jpn-phone-number.mjs';
+import { isValidJpnPhoneNumber, isTooSequential } from '../src/valid-jpn-phone-number';
 
 describe('Japanese Phone Number Validation', () => {
   describe('Valid phone numbers', () => {
@@ -14,8 +12,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       validNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), true,
-          `Expected ${number} to be valid`);
+        expect(isValidJpnPhoneNumber(number)).toBe(true);
       });
     });
 
@@ -29,8 +26,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       validNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), true,
-          `Expected ${number} to be valid`);
+        expect(isValidJpnPhoneNumber(number)).toBe(true);
       });
     });
   });
@@ -48,8 +44,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (contains non-digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -68,8 +63,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       [...shortNumbers, ...longNumbers].forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (wrong length: ${number.length} digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -83,8 +77,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (doesn't start with 0)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -96,8 +89,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (starts with 00)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
   });
@@ -114,8 +106,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (all same digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -131,8 +122,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (7+ repeated digits at end)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -145,8 +135,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       validNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), true,
-          `Expected ${number} to be valid (6 or fewer repeated digits at end)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(true);
       });
     });
 
@@ -159,8 +148,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (8+ sequential digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -172,8 +160,7 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       invalidNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), false,
-          `Expected ${number} to be invalid (8+ sequential descending digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(false);
       });
     });
 
@@ -188,29 +175,28 @@ describe('Japanese Phone Number Validation', () => {
       ];
 
       validNumbers.forEach(number => {
-        assert.strictEqual(isValidJpnPhoneNumber(number), true,
-          `Expected ${number} to be valid (7 or fewer sequential digits)`);
+        expect(isValidJpnPhoneNumber(number)).toBe(true);
       });
     });
   });
 
   describe('Edge cases', () => {
     it('should handle empty string', () => {
-      assert.strictEqual(isValidJpnPhoneNumber(''), false);
+      expect(isValidJpnPhoneNumber('')).toBe(false);
     });
 
     it('should handle single digit', () => {
-      assert.strictEqual(isValidJpnPhoneNumber('0'), false);
+      expect(isValidJpnPhoneNumber('0')).toBe(false);
     });
 
     it('should handle very long numbers', () => {
-      assert.strictEqual(isValidJpnPhoneNumber('0123456789012345'), false);
+      expect(isValidJpnPhoneNumber('0123456789012345')).toBe(false);
     });
 
     it('should handle mixed valid/invalid patterns', () => {
       // Numbers that pass some checks but fail others
-      assert.strictEqual(isValidJpnPhoneNumber('1234567890'), false); // 10 digits but doesn't start with 0
-      assert.strictEqual(isValidJpnPhoneNumber('0012345678'), false); // Starts with 0 but also with 00
+      expect(isValidJpnPhoneNumber('1234567890')).toBe(false); // 10 digits but doesn't start with 0
+      expect(isValidJpnPhoneNumber('0012345678')).toBe(false); // Starts with 0 but also with 00
     });
   });
 });
@@ -218,56 +204,56 @@ describe('Japanese Phone Number Validation', () => {
 describe('isTooSequential helper function', () => {
   describe('Ascending sequences (direction = 1)', () => {
     it('should detect sequences longer than max allowed', () => {
-      assert.strictEqual(isTooSequential('01234567', 6, 1), true);
-      assert.strictEqual(isTooSequential('12345678', 6, 1), true);
-      assert.strictEqual(isTooSequential('01234567890', 7, 1), true);
+      expect(isTooSequential('01234567', 6, 1)).toBe(true);
+      expect(isTooSequential('12345678', 6, 1)).toBe(true);
+      expect(isTooSequential('01234567890', 7, 1)).toBe(true);
     });
 
     it('should allow sequences within max allowed', () => {
-      assert.strictEqual(isTooSequential('0123456', 6, 1), false);
-      assert.strictEqual(isTooSequential('01234567', 7, 1), false);
-      assert.strictEqual(isTooSequential('012345', 6, 1), false);
+      expect(isTooSequential('0123456', 6, 1)).toBe(false);
+      expect(isTooSequential('01234567', 7, 1)).toBe(false);
+      expect(isTooSequential('012345', 6, 1)).toBe(false);
     });
 
     it('should handle non-sequential numbers', () => {
-      assert.strictEqual(isTooSequential('0135792468', 6, 1), false);
-      assert.strictEqual(isTooSequential('0123456890', 6, 1), false);
+      expect(isTooSequential('0135792468', 6, 1)).toBe(false);
+      expect(isTooSequential('0123456890', 6, 1)).toBe(false);
     });
   });
 
   describe('Descending sequences (direction = -1)', () => {
     it('should detect sequences longer than max allowed', () => {
-      assert.strictEqual(isTooSequential('87654321', 6, -1), true);
-      assert.strictEqual(isTooSequential('9876543210', 7, -1), true);
-      assert.strictEqual(isTooSequential('098765432', 6, -1), true);
+      expect(isTooSequential('87654321', 6, -1)).toBe(true);
+      expect(isTooSequential('9876543210', 7, -1)).toBe(true);
+      expect(isTooSequential('098765432', 6, -1)).toBe(true);
     });
 
     it('should allow sequences within max allowed', () => {
-      assert.strictEqual(isTooSequential('8765432', 6, -1), false);
-      assert.strictEqual(isTooSequential('987654', 6, -1), false);
-      assert.strictEqual(isTooSequential('09876543', 7, -1), false);
+      expect(isTooSequential('8765432', 6, -1)).toBe(false);
+      expect(isTooSequential('987654', 6, -1)).toBe(false);
+      expect(isTooSequential('09876543', 7, -1)).toBe(false);
     });
 
     it('should handle non-sequential numbers', () => {
-      assert.strictEqual(isTooSequential('0864209753', 6, -1), false);
-      assert.strictEqual(isTooSequential('9876543012', 6, -1), false);
+      expect(isTooSequential('0864209753', 6, -1)).toBe(false);
+      expect(isTooSequential('9876543012', 6, -1)).toBe(false);
     });
   });
 
   describe('Edge cases for isTooSequential', () => {
     it('should handle single character', () => {
-      assert.strictEqual(isTooSequential('0', 5, 1), false);
-      assert.strictEqual(isTooSequential('9', 5, -1), false);
+      expect(isTooSequential('0', 5, 1)).toBe(false);
+      expect(isTooSequential('9', 5, -1)).toBe(false);
     });
 
     it('should handle two characters', () => {
-      assert.strictEqual(isTooSequential('01', 5, 1), false);
-      assert.strictEqual(isTooSequential('98', 5, -1), false);
+      expect(isTooSequential('01', 5, 1)).toBe(false);
+      expect(isTooSequential('98', 5, -1)).toBe(false);
     });
 
     it('should handle sequences that wrap around', () => {
-      assert.strictEqual(isTooSequential('9012345', 5, 1), false); // 9->0 is not sequential
-      assert.strictEqual(isTooSequential('0987654', 5, -1), false); // 0->9 is not sequential
+      expect(isTooSequential('9012345', 5, 1)).toBe(false); // 9->0 is not sequential
+      expect(isTooSequential('0987654', 5, -1)).toBe(false); // 0->9 is not sequential
     });
   });
 });
