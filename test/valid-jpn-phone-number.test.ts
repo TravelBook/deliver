@@ -1,4 +1,3 @@
-import { describe, it, expect } from '@jest/globals';
 import { isValidJpnPhoneNumber, isTooSequential } from '../src/valid-jpn-phone-number';
 
 describe('Japanese Phone Number Validation', () => {

@@ -1,32 +1,44 @@
 #!/usr/bin/env node
-import { build } from 'esbuild';
-import { readdirSync } from 'fs';
+import { execSync } from 'child_process';
+import { readdirSync, readFileSync, writeFileSync, mkdtempSync, rmSync } from 'fs';
+import { tmpdir } from 'os';
+import { join } from 'path';
 
-// Find all TypeScript files in src/
-const srcFiles = readdirSync('src').filter(f => f.endsWith('.ts'));
+// Create a temporary directory for compilation
+const tempDir = mkdtempSync(join(tmpdir(), 'deliver-build-'));
 
-console.log(`Building ${srcFiles.length} utilities...`);
+try {
+  // Compile TypeScript files to temporary directory
+  console.log('Compiling TypeScript files...');
+  execSync(`npx tsc --outDir "${tempDir}"`, { stdio: 'inherit' });
 
-for (const file of srcFiles) {
-  const name = file.replace('.ts', '');
+  // Find all compiled JavaScript files in temp directory
+  const distFiles = readdirSync(tempDir).filter(f => f.endsWith('.js'));
 
-  // Convert kebab-case to PascalCase for global name
-  // valid-jpn-phone-number → ValidJpnPhoneNumber
-  const globalName = name
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+  console.log(`Post-processing ${distFiles.length} utilities...`);
 
-  await build({
-    entryPoints: [`src/${file}`],
-    bundle: true,
-    format: 'iife',
-    globalName,
-    outfile: `${name}.js`,
-    minify: true,
-  });
+  for (const file of distFiles) {
+    const name = file.replace('.js', '');
 
-  console.log(`✓ ${name}.js (global: ${globalName})`);
+    // Read the compiled JS file
+    let content = readFileSync(join(tempDir, file), 'utf8');
+
+    // Remove import/export statements and ES module markers
+    content = content
+      .replace(/^import .+;$/gm, '')              // Remove import statements
+      .replace(/^export \{[^}]+\};?$/gm, '')      // Remove export statements
+      .replace(/^export /gm, '')                  // Remove export keyword
+      .replace(/Object\.defineProperty\(exports, "__esModule"[^;]+;/g, '') // Remove ES module marker
+      .trim();
+
+    // Write the processed file to root
+    writeFileSync(`${name}.js`, content);
+
+    console.log(`✓ ${name}.js (processed from TypeScript)`);
+  }
+
+  console.log('✓ All utilities built successfully');
+} finally {
+  // Clean up temporary directory
+  rmSync(tempDir, { recursive: true, force: true });
 }
-
-console.log('✓ All utilities built successfully');
