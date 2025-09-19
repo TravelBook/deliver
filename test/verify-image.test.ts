@@ -47,7 +47,6 @@ function createMockImageFile(
   return new File([new ArrayBuffer(size)], name, { type });
 }
 
-
 describe('verifyImages()', () => {
   let alertSpy: jest.SpyInstance<void, [message?: string]>;
 
@@ -93,7 +92,6 @@ describe('verifyImages()', () => {
       });
 
       input.value = "asfsdf";
-
 
       verifyImages({ target: input } as unknown as Event);
 
