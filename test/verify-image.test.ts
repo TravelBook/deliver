@@ -27,7 +27,7 @@ function makeInputOptions({
 
   // Mock the value setter to clear files when value is set to empty string
   Object.defineProperty(input, 'value', {
-    get: () => currentFiles.length > 0 ? 'C:\\fakepath\\' + currentFiles[0].name : '',
+    get: () => currentFiles.length > 0 ? '/home/user/fakepath/' + currentFiles[0].name : '',
     set: (val: string) => {
       if (val === '') {
         currentFiles = [];
