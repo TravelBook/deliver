@@ -34,7 +34,7 @@ function verifyImages(event) {
         }
     }
     if (invalidImageCount > 0) {
-        alert(`選択された${target.files.length}枚中、${megabyteLimit}MBを超える画像${invalidImageCount}枚がありました。\\n画像サイズは${megabyteLimit}MB以下にしてください。`);
+        alert(`選択された${target.files.length}枚中、${megabyteLimit}MBを超える画像${invalidImageCount}枚がありました。\n画像サイズは${megabyteLimit}MB以下にしてください。`);
         target.value = "";
         return;
     }

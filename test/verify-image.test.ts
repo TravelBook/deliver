@@ -109,7 +109,7 @@ describe('verifyImages()', () => {
 
       verifyImages({ target: input } as unknown as Event);
 
-      expect(alertSpy).toHaveBeenCalledWith('選択された2枚中、4MBを超える画像1枚がありました。\\n画像サイズは4MB以下にしてください。');
+      expect(alertSpy).toHaveBeenCalledWith('選択された2枚中、4MBを超える画像1枚がありました。\n画像サイズは4MB以下にしてください。');
       expect(input.value).toEqual("");
     });
   });
