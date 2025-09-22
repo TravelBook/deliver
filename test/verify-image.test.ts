@@ -1,4 +1,4 @@
-import { verifyImages } from '../src/verify-image';
+import { verifyImages } from '../src/verify-images';
 
 // Helper function to make input options
 type MakeInputOptions = {
@@ -99,7 +99,7 @@ describe('verifyImages()', () => {
       expect(input.files).toEqual([]);
     });
 
-    it("alerts and clears when files are too large", () => {
+    it("alerts and clears when files exceed the specified megabyte limit", () => {
       const input = makeInputOptions({
         files: [createMockImageFile(5_000_000, 'image/jpeg'), createMockImageFile(2_700_000, 'image/jpeg')],
         megabyteLimit: 4,
