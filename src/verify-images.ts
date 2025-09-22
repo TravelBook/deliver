@@ -14,7 +14,7 @@ function verifyImages(event: Event) {
   }
 
   const imageCountLimit = Number(target.dataset?.imageCountLimit) || 10;
-  const megabyteLimit = Number(target.dataset?.megabyteLimit) || 4;
+  const megabyteLimit = Number(target.dataset?.megabyteLimit) || 50;
   const BYTES_PER_MEGABYTE = 1_000_000;
 
   let anyFileNotImage = Array.from(target.files).some((f: File) => {
