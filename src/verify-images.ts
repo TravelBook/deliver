@@ -15,6 +15,7 @@ function verifyImages(event: Event) {
 
   const imageCountLimit = Number(target.dataset?.imageCountLimit) || 10;
   const megabyteLimit = Number(target.dataset?.megabyteLimit) || 4;
+  const BYTES_PER_MEGABYTE = 1_000_000;
 
   let anyFileNotImage = Array.from(target.files).some((f: File) => {
     return !f.type.match('image.*');
@@ -34,7 +35,7 @@ function verifyImages(event: Event) {
 
   let invalidImageCount = 0
   for (const img of target.files) {
-    if (img.size > (1_000_000 * megabyteLimit)) {
+    if (img.size > (BYTES_PER_MEGABYTE * megabyteLimit)) {
       invalidImageCount++;
     }
   }
