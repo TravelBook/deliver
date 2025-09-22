@@ -32,8 +32,7 @@ try {
       .trim();
 
     // Write the processed file to root
-    const distDir = join(process.cwd(), 'dist');
-    writeFileSync(join(distDir, `${name}.js`), content);
+    writeFileSync(`${name}.js`, content);
 
     console.log(`✓ ${name}.js (processed from TypeScript)`);
   }
